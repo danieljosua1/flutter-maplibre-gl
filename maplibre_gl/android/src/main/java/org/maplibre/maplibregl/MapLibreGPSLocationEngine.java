@@ -73,6 +73,7 @@ public class MapLibreGPSLocationEngine implements LocationEngineImpl<LocationLis
                                        @Nullable Looper looper) throws SecurityException {
         // Pick best provider only if user has not explicitly chosen passive mode
         currentProvider = getBestProvider(request.getPriority());
+        System.out.print("Triggered: " + currentProvider);
         locationManager.requestLocationUpdates(currentProvider, request.getInterval(), request.getDisplacement(),
                 listener, looper);
     }
