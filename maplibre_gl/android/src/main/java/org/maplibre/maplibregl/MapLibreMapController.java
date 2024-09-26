@@ -33,6 +33,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mapbox.android.gestures.AndroidGesturesManager;
 import com.mapbox.android.gestures.MoveGestureDetector;
+
+import org.maplibre.android.location.engine.LocationEngine;
+import org.maplibre.android.location.engine.LocationEngineDefault;
+import org.maplibre.android.location.engine.LocationEngineProxy;
+import org.maplibre.android.location.engine.LocationEngineRequest;
 import org.maplibre.geojson.Feature;
 import org.maplibre.geojson.FeatureCollection;
 import org.maplibre.android.camera.CameraPosition;
@@ -142,6 +147,7 @@ final class MapLibreMapController
   private Map<String, FeatureCollection> addedFeaturesByLayer;
 
   private LatLngBounds bounds = null;
+
   Style.OnStyleLoaded onStyleLoadedCallback =
       new Style.OnStyleLoaded() {
         @Override
@@ -685,8 +691,8 @@ final class MapLibreMapController
         break;
       case "map#update":
         {
-          Convert.interpretMapLibreMapOptions(call.argument("options"), this, context);
-          result.success(Convert.toJson(getCameraPosition()));
+    Convert.interpretMapLibreMapOptions(call.argument("options"), this, context);
+    result.success(Convert.toJson(getCameraPosition()));
           break;
         }
       case "map#updateMyLocationTrackingMode":
@@ -1842,6 +1848,20 @@ final class MapLibreMapController
   public void setCameraTargetBounds(LatLngBounds bounds) {
     this.bounds = bounds;
   }
+
+  @Override
+  public void setLocationEngineProperties(LocationEngineRequest locationEngineRequest){
+    if(locationComponent != null){
+      final LocationEngine locationEngine = new LocationEngineProxy(
+              new MapLibreGPSLocationEngine(context));
+     if(locationEngineRequest.getPriority() == LocationEngineRequest.PRIORITY_HIGH_ACCURACY){
+       locationComponent.setLocationEngine(locationEngine);
+     } else {
+       locationComponent.setLocationEngine(
+               LocationEngineDefault.INSTANCE.getDefaultLocationEngine(context));
+     }
+      locationComponent.setLocationEngineRequest(locationEngineRequest);
+    } }
 
   @Override
   public void setCompassEnabled(boolean compassEnabled) {

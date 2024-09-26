@@ -1143,4 +1143,10 @@ class MapLibreMapController extends MapLibrePlatform
   Future<List> getSourceIds() async {
     throw UnimplementedError();
   }
+
+  @override
+  Future<void> updateLocationEngineProperties(LocationEngineProperties locationEngineProperties) {
+    // TODO: implement updateLocationEngineProperties
+    throw UnimplementedError();
+  }
 }
