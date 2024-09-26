@@ -33,6 +33,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mapbox.android.gestures.AndroidGesturesManager;
 import com.mapbox.android.gestures.MoveGestureDetector;
+
+import org.maplibre.android.location.engine.LocationEngine;
+import org.maplibre.android.location.engine.LocationEngineProxy;
 import org.maplibre.geojson.Feature;
 import org.maplibre.geojson.FeatureCollection;
 import org.maplibre.android.camera.CameraPosition;
@@ -289,10 +292,17 @@ final class MapLibreMapController
 
       locationComponent = mapLibreMap.getLocationComponent();
 
+      final LocationEngine locationEngine = new LocationEngineProxy(
+             new MapLibreGPSLocationEngine(
+                      context
+              )
+      );
+
       LocationComponentActivationOptions options =
               LocationComponentActivationOptions
                       .builder(context, style)
                       .locationComponentOptions(buildLocationComponentOptions(style))
+                      .locationEngine(locationEngine)
                       .build();
 
       locationComponent.activateLocationComponent(options);
