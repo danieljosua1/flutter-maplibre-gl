@@ -55,6 +55,8 @@ abstract class MapLibrePlatform {
   Future<void> updateMyLocationTrackingMode(
       MyLocationTrackingMode myLocationTrackingMode);
 
+  Future<void> updateLocationEngineProperties(LocationEngineProperties locationEngineProperties);
+
   Future<void> matchMapLanguageWithDeviceDefault();
 
   void resizeWebMap();

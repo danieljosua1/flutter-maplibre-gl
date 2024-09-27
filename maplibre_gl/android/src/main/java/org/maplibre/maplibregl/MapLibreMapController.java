@@ -36,6 +36,7 @@ import com.mapbox.android.gestures.MoveGestureDetector;
 
 import org.maplibre.android.location.engine.LocationEngine;
 import org.maplibre.android.location.engine.LocationEngineProxy;
+import org.maplibre.android.location.engine.LocationEngineRequest;
 import org.maplibre.geojson.Feature;
 import org.maplibre.geojson.FeatureCollection;
 import org.maplibre.android.camera.CameraPosition;
@@ -145,6 +146,7 @@ final class MapLibreMapController
   private Map<String, FeatureCollection> addedFeaturesByLayer;
 
   private LatLngBounds bounds = null;
+
   Style.OnStyleLoaded onStyleLoadedCallback =
       new Style.OnStyleLoaded() {
         @Override
@@ -293,10 +295,7 @@ final class MapLibreMapController
       locationComponent = mapLibreMap.getLocationComponent();
 
       final LocationEngine locationEngine = new LocationEngineProxy(
-             new MapLibreGPSLocationEngine(
-                      context
-              )
-      );
+             new MapLibreGPSLocationEngine(context));
 
       LocationComponentActivationOptions options =
               LocationComponentActivationOptions
@@ -1851,6 +1850,17 @@ final class MapLibreMapController
   @Override
   public void setCameraTargetBounds(LatLngBounds bounds) {
     this.bounds = bounds;
+  }
+
+  @Override
+  public void setLocationEngineProperties(LocationEngineRequest locationEngineRequest){
+    if(locationComponent != null){
+      final LocationEngine locationEngine = new LocationEngineProxy(
+              new MapLibreGPSLocationEngine(context));
+     if(locationEngineRequest.getPriority() == 0) {
+       locationComponent.setLocationEngine(locationEngine);
+     }
+    }
   }
 
   @Override
