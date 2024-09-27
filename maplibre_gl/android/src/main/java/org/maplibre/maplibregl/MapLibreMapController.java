@@ -294,14 +294,10 @@ final class MapLibreMapController
 
       locationComponent = mapLibreMap.getLocationComponent();
 
-      final LocationEngine locationEngine = new LocationEngineProxy(
-             new MapLibreGPSLocationEngine(context));
-
       LocationComponentActivationOptions options =
               LocationComponentActivationOptions
                       .builder(context, style)
                       .locationComponentOptions(buildLocationComponentOptions(style))
-                      .locationEngine(locationEngine)
                       .build();
 
       locationComponent.activateLocationComponent(options);
