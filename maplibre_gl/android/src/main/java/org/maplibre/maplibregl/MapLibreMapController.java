@@ -1850,6 +1850,7 @@ final class MapLibreMapController
 
   @Override
   public void setLocationEngineProperties(LocationEngineRequest locationEngineRequest){
+    System.out.println("setLocationEngineProperties function triggered");
     if(locationComponent != null){
       final LocationEngine locationEngine = new LocationEngineProxy(
               new MapLibreGPSLocationEngine(context));
