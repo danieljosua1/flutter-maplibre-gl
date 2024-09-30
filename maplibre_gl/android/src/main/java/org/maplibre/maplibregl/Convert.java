@@ -222,7 +222,9 @@ class Convert {
     final DisplayMetrics metrics = context.getResources().getDisplayMetrics();
     final Map<?, ?> data = toMap(o);
     final Object locationEngineProperties = data.get("locationEngineProperties");
-    if (locationEngineProperties != null) {
+if (locationEngineProperties != null) {
+  System.out.println("Location Engine Properties: " + locationEngineProperties);
+  if (locationEngineProperties != null) {
       final List<?> locationEnginePropertiesData = toList(locationEngineProperties);
       sink.setLocationEngineProperties(toLocationEngineRequest(locationEnginePropertiesData.get(0)));
     }
