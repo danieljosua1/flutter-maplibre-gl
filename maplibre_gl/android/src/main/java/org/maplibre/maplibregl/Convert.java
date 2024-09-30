@@ -7,6 +7,7 @@ package org.maplibre.maplibregl;
 import android.content.Context;
 import android.graphics.Point;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import org.maplibre.android.location.engine.LocationEngineRequest;
 import org.maplibre.geojson.Polygon;
@@ -224,6 +225,8 @@ class Convert {
 
     final Object locationEngineProperties = data.get("locationEngineProperties");
     if (locationEngineProperties != null) {
+      Log.d(TAG, "Triggo locationEngineProperties: " + locationEngineProperties);
+
       // Konvertieren Sie das Objekt in eine Liste
       final List<?> locationEnginePropertiesList = toList(locationEngineProperties);
       if (locationEnginePropertiesList != null) {
