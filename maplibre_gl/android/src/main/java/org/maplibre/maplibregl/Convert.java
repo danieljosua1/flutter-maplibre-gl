@@ -227,7 +227,7 @@ if (locationEngineProperties != null) {
   if (locationEngineProperties != null) {
       final List<?> locationEnginePropertiesData = toList(locationEngineProperties);
       sink.setLocationEngineProperties(toLocationEngineRequest(locationEnginePropertiesData.get(0)));
-    }
+    }}
 
     final Object cameraTargetBounds = data.get("cameraTargetBounds");
     if (cameraTargetBounds != null) {
