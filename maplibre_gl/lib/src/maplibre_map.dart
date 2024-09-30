@@ -276,6 +276,7 @@ class _MapLibreMapState extends State<MapLibreMap> {
         'iosLongClickDurationMilliseconds':
             widget.iosLongClickDuration!.inMilliseconds,
     };
+    print('triggo: $creationParams');
     return _maplibrePlatform.buildView(
         creationParams, onPlatformViewCreated, widget.gestureRecognizers);
   }
