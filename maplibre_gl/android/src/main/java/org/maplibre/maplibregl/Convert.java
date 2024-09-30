@@ -222,11 +222,17 @@ class Convert {
     final DisplayMetrics metrics = context.getResources().getDisplayMetrics();
     final Map<?, ?> data = toMap(o);
 
-      final Object locationEngineProperties = data.get("locationEngineProperties");
-      if (locationEngineProperties != null) {
-          final Map<?, ?> locationEnginePropertiesData = toMap(locationEngineProperties);
-          sink.setLocationEngineProperties(toLocationEngineRequest(locationEnginePropertiesData));
+    final Object locationEngineProperties = data.get("locationEngineProperties");
+    if (locationEngineProperties != null) {
+      // Konvertieren Sie das Objekt in eine Liste
+      final List<?> locationEnginePropertiesList = toList(locationEngineProperties);
+      if (locationEnginePropertiesList != null) {
+        final Object firstElement = locationEnginePropertiesList.get(0);
+        final Map<?, ?> locationEnginePropertiesData = toMap(firstElement);
+        sink.setLocationEngineProperties(toLocationEngineRequest(locationEnginePropertiesData));
       }
+    }
+
 
     final Object cameraTargetBounds = data.get("cameraTargetBounds");
     if (cameraTargetBounds != null) {
