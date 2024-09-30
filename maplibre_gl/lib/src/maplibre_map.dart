@@ -276,13 +276,13 @@ class _MapLibreMapState extends State<MapLibreMap> {
         'iosLongClickDurationMilliseconds':
             widget.iosLongClickDuration!.inMilliseconds,
     };
-    print('triggo: $creationParams');
     return _maplibrePlatform.buildView(
         creationParams, onPlatformViewCreated, widget.gestureRecognizers);
   }
 
   @override
   void initState() {
+    print('triggo init');
     super.initState();
     _maplibreMapOptions = _MapLibreMapOptions.fromWidget(widget);
   }
@@ -301,7 +301,6 @@ class _MapLibreMapState extends State<MapLibreMap> {
     super.didUpdateWidget(oldWidget);
     final newOptions = _MapLibreMapOptions.fromWidget(widget);
     final updates = _maplibreMapOptions.updatesMap(newOptions);
-    debugPrint('triggo updates:$updates');
     _updateOptions(updates);
     _maplibreMapOptions = newOptions;
   }

@@ -690,7 +690,7 @@ final class MapLibreMapController
         break;
       case "map#update":
         {
-    Log.d(TAG, "Options: " + call.argument("options"));
+    Log.d(TAG, "Triggo Options: " + call.argument("options"));
     Convert.interpretMapLibreMapOptions(call.argument("options"), this, context);
     result.success(Convert.toJson(getCameraPosition()));
           break;
