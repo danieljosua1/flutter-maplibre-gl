@@ -531,6 +531,15 @@ class MapLibreMethodChannel extends MapLibrePlatform {
   }
 
   @override
+  Future<void> updateLocationEngineProperties(LocationEngineProperties locationEngineProperties) async{
+    try {
+      await _channel.invokeMethod('map#updateLocationEngineProperties', locationEngineProperties.toMap());
+    }  on PlatformException catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  @override
   Future<double> getMetersPerPixelAtLatitude(double latitude) async {
     try {
       final latLngMap = await _channel
