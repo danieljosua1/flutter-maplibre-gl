@@ -140,10 +140,10 @@ class Convert {
     if (o == null) {
       return null;
     }
-    final Map<?, ?> data = toMap(o);
-    final LocationEngineRequest.Builder builder = new LocationEngineRequest.Builder(toInt(data.get("interval")));
-    builder.setPriority(toInt(data.get("priority")));
-    builder.setDisplacement(toInt(data.get("displacement")));
+    final List<?> data = toList(o);
+    final LocationEngineRequest.Builder builder = new LocationEngineRequest.Builder(toInt(data.get(0)));
+    builder.setPriority(toInt(data.get(1)));
+    builder.setDisplacement(toInt(data.get(2)));
     return builder.build();
   }
 
@@ -226,7 +226,7 @@ class Convert {
     final Object locationEngineProperties = data.get("locationEngineProperties");
     if (locationEngineProperties != null) {
       final List<?> locationEnginePropertiesList = toList(locationEngineProperties);
-        sink.setLocationEngineProperties(toLocationEngineRequest(locationEnginePropertiesList.get(0)));
+        sink.setLocationEngineProperties(toLocationEngineRequest(locationEnginePropertiesList));
     }
 
     final Object cameraTargetBounds = data.get("cameraTargetBounds");
