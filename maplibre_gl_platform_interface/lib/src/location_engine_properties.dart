@@ -51,15 +51,6 @@ class LocationEngineProperties {
     );
   }
 
-  /// Converts this [LocationEngineProperties] to a map.
-  Map<String, dynamic> toMap() {
-    return {
-      'interval': interval,
-      'displacement': displacement,
-      'priority': priority.index,
-    };
-  }
-
   List<int> toList() {
     return [
          interval,
