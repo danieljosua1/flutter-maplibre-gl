@@ -136,19 +136,16 @@ class Convert {
     return builder.build();
   }
 
-static LocationEngineRequest toLocationEngineRequest(Object o) {
-  if (o == null) {
-    return null;
+  static LocationEngineRequest toLocationEngineRequest(Object o) {
+    if (o == null) {
+      return null;
+    }
+    final Map<?, ?> data = toMap(o);
+    final LocationEngineRequest.Builder builder = new LocationEngineRequest.Builder(toInt(data.get("interval")));
+    builder.setPriority(toInt(data.get("priority")));
+    builder.setDisplacement(toInt(data.get("displacement")));
+    return builder.build();
   }
-  final List<?> data = toList(o);
-  final float interval = toFloatWrapper(data.get(0));
-  final float displacement = toFloatWrapper(data.get(1));
-  final int priority = toInt(data.get(2));
-  final LocationEngineRequest.Builder builder = new LocationEngineRequest.Builder(interval);
-  builder.setPriority(priority);
-  builder.setDisplacement(displacement);
-  return builder.build();
-}
 
   static List<LatLng> toLatLngList(Object o, boolean flippedOrder) {
     if (o == null) {
@@ -229,7 +226,7 @@ static LocationEngineRequest toLocationEngineRequest(Object o) {
     final Object locationEngineProperties = data.get("locationEngineProperties");
     if (locationEngineProperties != null) {
       final List<?> locationEnginePropertiesList = toList(locationEngineProperties);
-        sink.setLocationEngineProperties(toLocationEngineRequest(locationEnginePropertiesList));
+        sink.setLocationEngineProperties(toLocationEngineRequest(locationEnginePropertiesList.get(0)));
     }
 
     final Object cameraTargetBounds = data.get("cameraTargetBounds");
