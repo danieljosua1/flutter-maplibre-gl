@@ -690,8 +690,9 @@ final class MapLibreMapController
         break;
       case "map#update":
         {
-          Convert.interpretMapLibreMapOptions(call.argument("options"), this, context);
-          result.success(Convert.toJson(getCameraPosition()));
+    Log.d(TAG, "Options: " + call.argument("options"));
+    Convert.interpretMapLibreMapOptions(call.argument("options"), this, context);
+    result.success(Convert.toJson(getCameraPosition()));
           break;
         }
       case "map#updateMyLocationTrackingMode":
