@@ -224,7 +224,7 @@ class Convert {
     final Object locationEngineProperties = data.get("locationEngineProperties");
 
   if (locationEngineProperties != null) {
-      final List<?> locationEnginePropertiesData = toList(locationEngineProperties);
+      final List<?> locationEnginePropertiesData = locationEngineProperties;
       sink.setLocationEngineProperties(toLocationEngineRequest(locationEnginePropertiesData.get(0)));
     }
 
