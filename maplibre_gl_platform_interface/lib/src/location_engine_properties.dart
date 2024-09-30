@@ -62,7 +62,11 @@ class LocationEngineProperties {
 
   List<Map<String,dynamic>> toList() {
     return [
-      toMap()
+    {
+      'interval': interval,
+    'displacement': displacement,
+    'priority': priority.index,
+  }
     ];
   }
 
