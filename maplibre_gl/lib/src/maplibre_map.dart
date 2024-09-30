@@ -300,6 +300,7 @@ class _MapLibreMapState extends State<MapLibreMap> {
     super.didUpdateWidget(oldWidget);
     final newOptions = _MapLibreMapOptions.fromWidget(widget);
     final updates = _maplibreMapOptions.updatesMap(newOptions);
+    debugPrint('triggo updates:$updates');
     _updateOptions(updates);
     _maplibreMapOptions = newOptions;
   }
