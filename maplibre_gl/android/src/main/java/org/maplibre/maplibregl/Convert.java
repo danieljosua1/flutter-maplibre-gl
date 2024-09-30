@@ -223,7 +223,7 @@ class Convert {
     final Map<?, ?> data = toMap(o);
     final Object locationEngineProperties = data.get("locationEngineProperties");
 if (locationEngineProperties != null) {
-  System.out.println("Location Engine Properties: " + locationEngineProperties);
+  Log.d("Triggo prop: " + locationEngineProperties);
   if (locationEngineProperties != null) {
       final List<?> locationEnginePropertiesData = toList(locationEngineProperties);
       sink.setLocationEngineProperties(toLocationEngineRequest(locationEnginePropertiesData.get(0)));
