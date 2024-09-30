@@ -474,7 +474,7 @@ class _MapLibreMapOptions {
     addIfNonNull('attributionButtonPosition', attributionButtonPosition?.index);
     addIfNonNull(
         'attributionButtonMargins', pointToArray(attributionButtonMargins));
-    addIfNonNull('locationEngineProperties', locationEngineProperties?.toMap());
+    addIfNonNull('locationEngineProperties', locationEngineProperties?.toList());
     return optionsMap;
   }
 

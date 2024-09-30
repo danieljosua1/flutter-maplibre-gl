@@ -60,6 +60,12 @@ class LocationEngineProperties {
     };
   }
 
+  List<Map<String,dynamic>> toList() {
+    return [
+      toMap()
+    ];
+  }
+
   /// Creates a new instance of [LocationEngineProperties] from a map.
   ///
   /// The map must contain the keys 'interval', 'displacement', and 'locationPriority'.
