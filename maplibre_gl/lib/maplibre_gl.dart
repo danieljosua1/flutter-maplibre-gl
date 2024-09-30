@@ -66,6 +66,7 @@ export 'package:maplibre_gl_platform_interface/maplibre_gl_platform_interface.da
         LatLngQuad,
         Line,
         LineOptions,
+        LocationEngineProperties,
         MapLibreMethodChannel,
         MapLibrePlatform,
         MinMaxZoomPreference,
