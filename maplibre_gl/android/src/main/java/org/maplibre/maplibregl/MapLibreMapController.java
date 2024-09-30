@@ -690,13 +690,6 @@ final class MapLibreMapController
         break;
       case "map#update":
         {
-            Map<String, Object> options = call.argument("options");
-            if (options != null) {
-              Map<String, Object> locationEngineProperties = (Map<String, Object>) options.get("locationEngineProperties");
-              if (locationEngineProperties != null) {
-                Log.d(TAG, "Triggo Options1: " + call.argument("options"));
-              }
-            }
     Log.d(TAG, "Triggo Options: " + call.argument("options"));
     Convert.interpretMapLibreMapOptions(call.argument("options"), this, context);
     result.success(Convert.toJson(getCameraPosition()));
