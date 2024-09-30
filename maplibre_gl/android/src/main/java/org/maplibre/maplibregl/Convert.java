@@ -225,8 +225,7 @@ class Convert {
 
     final Object locationEngineProperties = data.get("locationEngineProperties");
     if (locationEngineProperties != null) {
-      final List<?> locationEnginePropertiesList = toList(locationEngineProperties);
-        sink.setLocationEngineProperties(toLocationEngineRequest(locationEnginePropertiesList));
+        sink.setLocationEngineProperties(toLocationEngineRequest(locationEngineProperties));
     }
 
     final Object cameraTargetBounds = data.get("cameraTargetBounds");
