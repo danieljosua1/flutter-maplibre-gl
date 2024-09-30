@@ -136,16 +136,19 @@ class Convert {
     return builder.build();
   }
 
-  static LocationEngineRequest toLocationEngineRequest(Object o) {
-    if (o == null) {
-      return null;
-    }
-    final Map<?, ?> data = toMap(o);
-    final LocationEngineRequest.Builder builder = new LocationEngineRequest.Builder(toInt(data.get("interval")));
-    builder.setPriority(toInt(data.get("priority")));
-    builder.setDisplacement(toInt(data.get("displacement")));
-    return builder.build();
+static LocationEngineRequest toLocationEngineRequest(Object o) {
+  if (o == null) {
+    return null;
   }
+  final List<?> data = toList(o);
+  final long interval = toLong(data.get(0));
+  final float displacement = toFloat(data.get(1));
+  final int priority = toInt(data.get(2));
+  final LocationEngineRequest.Builder builder = new LocationEngineRequest.Builder(interval);
+  builder.setPriority(priority);
+  builder.setDisplacement(displacement);
+  return builder.build();
+}
 
   static List<LatLng> toLatLngList(Object o, boolean flippedOrder) {
     if (o == null) {
@@ -225,17 +228,9 @@ class Convert {
 
     final Object locationEngineProperties = data.get("locationEngineProperties");
     if (locationEngineProperties != null) {
-      Log.d(TAG, "Triggo locationEngineProperties: " + locationEngineProperties);
-
-      // Konvertieren Sie das Objekt in eine Liste
       final List<?> locationEnginePropertiesList = toList(locationEngineProperties);
-      if (locationEnginePropertiesList != null) {
-        final Object firstElement = locationEnginePropertiesList.get(0);
-        final Map<?, ?> locationEnginePropertiesData = toMap(firstElement);
-        sink.setLocationEngineProperties(toLocationEngineRequest(locationEnginePropertiesData));
-      }
+        sink.setLocationEngineProperties(toLocationEngineRequest(locationEnginePropertiesList));
     }
-
 
     final Object cameraTargetBounds = data.get("cameraTargetBounds");
     if (cameraTargetBounds != null) {
