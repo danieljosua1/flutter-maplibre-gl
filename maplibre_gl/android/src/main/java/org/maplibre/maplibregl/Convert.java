@@ -141,8 +141,8 @@ static LocationEngineRequest toLocationEngineRequest(Object o) {
     return null;
   }
   final List<?> data = toList(o);
-  final long interval = toLong(data.get(0));
-  final float displacement = toFloat(data.get(1));
+  final float interval = toFloatWrapper(data.get(0));
+  final float displacement = toFloatWrapper(data.get(1));
   final int priority = toInt(data.get(2));
   final LocationEngineRequest.Builder builder = new LocationEngineRequest.Builder(interval);
   builder.setPriority(priority);
