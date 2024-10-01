@@ -141,7 +141,8 @@ class Convert {
       return null;
     }
     final List<?> data = toList(o);
-    final LocationEngineRequest.Builder builder = new LocationEngineRequest.Builder(toInt(data.get(0)));
+    final LocationEngineRequest.Builder builder = new LocationEngineRequest.Builder(
+            toInt(data.get(0)));
     builder.setPriority(toInt(data.get(1)));
     builder.setDisplacement(toInt(data.get(2)));
     return builder.build();
