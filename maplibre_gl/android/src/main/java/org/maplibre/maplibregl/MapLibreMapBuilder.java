@@ -9,14 +9,13 @@ import android.view.Gravity;
 import androidx.annotation.NonNull;
 import org.maplibre.android.camera.CameraPosition;
 import org.maplibre.android.geometry.LatLngBounds;
-import org.maplibre.android.location.engine.LocationEngineRequest;
 import org.maplibre.android.maps.MapLibreMapOptions;
 import io.flutter.plugin.common.BinaryMessenger;
 
 class MapLibreMapBuilder implements MapLibreMapOptionsSink {
   public final String TAG = getClass().getSimpleName();
   private final MapLibreMapOptions options =
-      new MapLibreMapOptions().attributionEnabled(true).logoEnabled(false).textureMode(true);
+          new MapLibreMapOptions().attributionEnabled(true).logoEnabled(false).textureMode(true);
   private boolean trackCameraPosition = false;
   private boolean myLocationEnabled = false;
   private boolean dragEnabled = true;
@@ -24,17 +23,16 @@ class MapLibreMapBuilder implements MapLibreMapOptionsSink {
   private int myLocationRenderMode = 0;
   private String styleString = "";
   private LatLngBounds bounds = null;
-  private LocationEngineRequest locationEngineRequest = null;
 
   MapLibreMapController build(
-      int id,
-      Context context,
-      BinaryMessenger messenger,
-      MapLibreMapsPlugin.LifecycleProvider lifecycleProvider) {
+          int id,
+          Context context,
+          BinaryMessenger messenger,
+          MapLibreMapsPlugin.LifecycleProvider lifecycleProvider) {
 
     final MapLibreMapController controller =
-        new MapLibreMapController(
-            id, context, messenger, lifecycleProvider, options, styleString, dragEnabled);
+            new MapLibreMapController(
+                    id, context, messenger, lifecycleProvider, options, styleString, dragEnabled);
     controller.init();
     controller.setMyLocationEnabled(myLocationEnabled);
     controller.setMyLocationTrackingMode(myLocationTrackingMode);
@@ -43,10 +41,6 @@ class MapLibreMapBuilder implements MapLibreMapOptionsSink {
 
     if (null != bounds) {
       controller.setCameraTargetBounds(bounds);
-    }
-
-    if(null != locationEngineRequest ){
-      controller.setLocationEngineProperties(locationEngineRequest);
     }
 
     return controller;
@@ -123,12 +117,12 @@ class MapLibreMapBuilder implements MapLibreMapOptionsSink {
 
   public void setLogoViewMargins(int x, int y) {
     options.logoMargins(
-        new int[] {
-          (int) x, // left
-          (int) 0, // top
-          (int) 0, // right
-          (int) y, // bottom
-        });
+            new int[] {
+                    (int) x, // left
+                    (int) 0, // top
+                    (int) 0, // right
+                    (int) y, // bottom
+            });
   }
 
   @Override
@@ -155,8 +149,8 @@ class MapLibreMapBuilder implements MapLibreMapOptionsSink {
       case Gravity.TOP | Gravity.START:
         options.compassMargins(new int[] {(int) x, (int) y, 0, 0});
         break;
-        // If the application code has not specified gravity, assume the platform
-        // default for the compass which is top-right
+      // If the application code has not specified gravity, assume the platform
+      // default for the compass which is top-right
       default:
       case Gravity.TOP | Gravity.END:
         options.compassMargins(new int[] {0, (int) y, (int) x, 0});
@@ -197,8 +191,8 @@ class MapLibreMapBuilder implements MapLibreMapOptionsSink {
       case Gravity.TOP | Gravity.END:
         options.attributionMargins(new int[] {0, (int) y, (int) x, 0});
         break;
-        // If the application code has not specified gravity, assume the platform
-        // default for the attribution button which is bottom left
+      // If the application code has not specified gravity, assume the platform
+      // default for the attribution button which is bottom left
       default:
       case Gravity.BOTTOM | Gravity.START:
         options.attributionMargins(new int[] {(int) x, 0, 0, (int) y});
@@ -211,10 +205,5 @@ class MapLibreMapBuilder implements MapLibreMapOptionsSink {
 
   public void setDragEnabled(boolean enabled) {
     this.dragEnabled = enabled;
-  }
-
-  @Override
-  public void setLocationEngineProperties(@NonNull LocationEngineRequest locationEngineRequest) {
-this.locationEngineRequest = locationEngineRequest;
   }
 }
