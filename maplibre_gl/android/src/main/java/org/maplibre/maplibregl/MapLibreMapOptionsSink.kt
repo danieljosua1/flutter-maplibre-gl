@@ -43,4 +43,6 @@ internal interface MapLibreMapOptionsSink {
     fun setAttributionButtonGravity(gravity: Int)
 
     fun setAttributionButtonMargins(x: Int, y: Int)
+
+    fun setLocationEngineProperties(locationEngineRequest: LocationEngineRequest)
 }
