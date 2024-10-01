@@ -35,7 +35,7 @@ class LocationEngineProperties {
 
   @override
   String toString() {
-    return 'LocationEngineProperties{ interval: $interval, displacement: $displacement, locationPriority: $priority,}';
+    return 'LocationEngineProperties{ interval: $interval, displacement: $displacement, locationPriority: $priority}';
   }
 
   /// Creates a copy of this [LocationEngineProperties] but with the given fields replaced with the new values.
@@ -59,16 +59,6 @@ class LocationEngineProperties {
     ];
   }
 
-  /// Creates a new instance of [LocationEngineProperties] from a map.
-  ///
-  /// The map must contain the keys 'interval', 'displacement', and 'locationPriority'.
-  factory LocationEngineProperties.fromMap(Map<String, dynamic> map) {
-    return LocationEngineProperties(
-      interval: map['interval'] as int,
-      displacement: map['displacement'] as int,
-      priority: LocationPriority.values[ map['locationPriority']],
-    );
-  }
 }
 
 /// An enum representing the priority for location accuracy and power usage.

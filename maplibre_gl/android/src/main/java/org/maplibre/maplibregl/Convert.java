@@ -228,7 +228,6 @@ class Convert {
       final List<?> locationEnginePropertiesList = toList(locationEngineProperties);
         sink.setLocationEngineProperties(toLocationEngineRequest(locationEnginePropertiesList));
     }
-
     final Object cameraTargetBounds = data.get("cameraTargetBounds");
     if (cameraTargetBounds != null) {
       final List<?> targetData = toList(cameraTargetBounds);

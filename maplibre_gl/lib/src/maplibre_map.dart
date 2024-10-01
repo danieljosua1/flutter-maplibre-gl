@@ -20,7 +20,8 @@ class MapLibreMap extends StatefulWidget {
     this.styleString = MapLibreStyles.demo,
     this.onMapCreated,
     this.onStyleLoadedCallback,
-    this.locationEngineProperties,
+    this.locationEngineProperties = const LocationEngineProperties(
+        interval: 1000, displacement: 0, priority: LocationPriority.balanced),
     this.gestureRecognizers,
     this.compassEnabled = true,
     this.cameraTargetBounds = CameraTargetBounds.unbounded,
@@ -65,13 +66,12 @@ class MapLibreMap extends StatefulWidget {
               myLocationEnabled,
           "$myLocationRenderMode requires [myLocationEnabled] set to true.",
         ),
-        assert(locationEngineProperties == null || myLocationEnabled,
-        "locationEngineProperties can only be set if [myLocationEnabled] is set to true"),
         assert(annotationOrder.length <= 4),
         assert(annotationConsumeTapEvents.length > 0);
 
   /// The properties for the location engine, which include interval, displacement, and priority.
-  final LocationEngineProperties? locationEngineProperties;
+  /// Can only be set if [myLocationEnabled] is set to true.
+  final LocationEngineProperties locationEngineProperties;
 
   /// Defines the layer order of annotations displayed on map
   ///

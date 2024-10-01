@@ -35,6 +35,7 @@ import com.mapbox.android.gestures.AndroidGesturesManager;
 import com.mapbox.android.gestures.MoveGestureDetector;
 
 import org.maplibre.android.location.engine.LocationEngine;
+import org.maplibre.android.location.engine.LocationEngineDefault;
 import org.maplibre.android.location.engine.LocationEngineProxy;
 import org.maplibre.android.location.engine.LocationEngineRequest;
 import org.maplibre.geojson.Feature;
@@ -1851,13 +1852,16 @@ final class MapLibreMapController
 
   @Override
   public void setLocationEngineProperties(LocationEngineRequest locationEngineRequest){
-    System.out.println("setLocationEngineProperties function triggered");
     if(locationComponent != null){
       final LocationEngine locationEngine = new LocationEngineProxy(
               new MapLibreGPSLocationEngine(context));
-     if(locationEngineRequest.getPriority() == 0) {
+     if(locationEngineRequest.getPriority() == LocationEngineRequest.PRIORITY_HIGH_ACCURACY){ {
        locationComponent.setLocationEngine(locationEngine);
+     } else {
+       locationComponent.setLocationEngine(
+               LocationEngineDefault.INSTANCE.getDefaultLocationEngine(context));
      }
+      locationComponent.setLocationEngineRequest(locationEngineRequest);
     }
   }
 
