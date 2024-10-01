@@ -54,8 +54,8 @@ class LocationEngineProperties {
   List<int> toList() {
     return [
          interval,
-         displacement,
          priority.index,
+         displacement,
     ];
   }
 
