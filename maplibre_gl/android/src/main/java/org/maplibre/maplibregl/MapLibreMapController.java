@@ -1862,8 +1862,7 @@ final class MapLibreMapController
                LocationEngineDefault.INSTANCE.getDefaultLocationEngine(context));
      }
       locationComponent.setLocationEngineRequest(locationEngineRequest);
-    }
-  }
+    } } }
 
   @Override
   public void setCompassEnabled(boolean compassEnabled) {
