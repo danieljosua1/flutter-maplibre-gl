@@ -1858,7 +1858,7 @@ final class MapLibreMapController
      if(locationEngineRequest.getPriority() == LocationEngineRequest.PRIORITY_HIGH_ACCURACY){
        locationComponent.setLocationEngine(locationEngine);
      } else {
-       Log.d("Setting default location engine");
+       Log.d(TAG, "Triggo Options: " + call.argument);
        locationComponent.setLocationEngine(
                LocationEngineDefault.INSTANCE.getDefaultLocationEngine(context));
      }
