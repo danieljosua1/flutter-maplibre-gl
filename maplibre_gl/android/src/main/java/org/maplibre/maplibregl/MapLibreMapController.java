@@ -1858,6 +1858,7 @@ final class MapLibreMapController
      if(locationEngineRequest.getPriority() == LocationEngineRequest.PRIORITY_HIGH_ACCURACY){
        locationComponent.setLocationEngine(locationEngine);
      } else {
+       System.out.println("Setting default location engine");
        locationComponent.setLocationEngine(
                LocationEngineDefault.INSTANCE.getDefaultLocationEngine(context));
      }
