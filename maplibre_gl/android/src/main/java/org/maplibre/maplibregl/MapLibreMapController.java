@@ -691,7 +691,6 @@ final class MapLibreMapController
         break;
       case "map#update":
         {
-    Log.d(TAG, "Triggo Options: " + call.argument("options"));
     Convert.interpretMapLibreMapOptions(call.argument("options"), this, context);
     result.success(Convert.toJson(getCameraPosition()));
           break;
@@ -1855,7 +1854,6 @@ final class MapLibreMapController
     if(locationComponent != null){
       final LocationEngine locationEngine = new LocationEngineProxy(
               new MapLibreGPSLocationEngine(context));
-      Log.d(TAG, "Triggo Default "+ locationEngineRequest.getPriority());
      if(locationEngineRequest.getPriority() == LocationEngineRequest.PRIORITY_HIGH_ACCURACY){
        locationComponent.setLocationEngine(locationEngine);
      } else {
