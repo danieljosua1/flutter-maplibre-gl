@@ -1852,10 +1852,9 @@ final class MapLibreMapController
   @Override
   public void setLocationEngineProperties(LocationEngineRequest locationEngineRequest){
     if(locationComponent != null){
-      final LocationEngine locationEngine = new LocationEngineProxy(
-              new MapLibreGPSLocationEngine(context));
      if(locationEngineRequest.getPriority() == LocationEngineRequest.PRIORITY_HIGH_ACCURACY){
-       locationComponent.setLocationEngine(locationEngine);
+       locationComponent.setLocationEngine(new LocationEngineProxy(
+               new MapLibreGPSLocationEngine(context)));
      } else {
        locationComponent.setLocationEngine(
                LocationEngineDefault.INSTANCE.getDefaultLocationEngine(context));
