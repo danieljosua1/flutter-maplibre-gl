@@ -20,8 +20,7 @@ class MapLibreMap extends StatefulWidget {
     this.styleString = MapLibreStyles.demo,
     this.onMapCreated,
     this.onStyleLoadedCallback,
-    this.locationEngineProperties = const LocationEngineProperties(
-        interval: 1000, displacement: 0, priority: LocationPriority.balanced),
+    this.locationEnginePlatforms = LocationEnginePlatforms.defaultPlatform,
     this.gestureRecognizers,
     this.compassEnabled = true,
     this.cameraTargetBounds = CameraTargetBounds.unbounded,
@@ -71,7 +70,7 @@ class MapLibreMap extends StatefulWidget {
 
   /// The properties for the location engine, which include interval, displacement, and priority.
   /// Can only be set if [myLocationEnabled] is set to true.
-  final LocationEngineProperties locationEngineProperties;
+  final LocationEnginePlatforms locationEnginePlatforms;
 
   /// Defines the layer order of annotations displayed on map
   ///
@@ -363,12 +362,12 @@ class _MapLibreMapOptions {
     this.compassViewMargins,
     this.attributionButtonPosition,
     this.attributionButtonMargins,
-    this.locationEngineProperties
+    this.locationEnginePlatforms
   });
 
   _MapLibreMapOptions.fromWidget(MapLibreMap map)
       : this(
-          locationEngineProperties: map.locationEngineProperties,
+          locationEnginePlatforms: map.locationEnginePlatforms,
           compassEnabled: map.compassEnabled,
           cameraTargetBounds: map.cameraTargetBounds,
           styleString: map.styleString,
@@ -426,7 +425,7 @@ class _MapLibreMapOptions {
 
   final Point? attributionButtonMargins;
 
-  final LocationEngineProperties? locationEngineProperties;
+  final LocationEnginePlatforms? locationEnginePlatforms;
 
   final _gestureGroup = {
     'rotateGesturesEnabled',
@@ -474,7 +473,7 @@ class _MapLibreMapOptions {
     addIfNonNull('attributionButtonPosition', attributionButtonPosition?.index);
     addIfNonNull(
         'attributionButtonMargins', pointToArray(attributionButtonMargins));
-    addIfNonNull('locationEngineProperties', locationEngineProperties?.toList());
+    addIfNonNull('locationEngineProperties', locationEnginePlatforms?.toList());
     return optionsMap;
   }
 

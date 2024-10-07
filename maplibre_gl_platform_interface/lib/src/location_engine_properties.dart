@@ -1,8 +1,25 @@
 part of '../maplibre_gl_platform_interface.dart';
 
+///IOS is not supported at the moment
+@immutable
+class LocationEnginePlatforms {
+  /// The properties for the Android platform.
+  final LocationEngineAndroidProperties androidPlatform;
+
+  const LocationEnginePlatforms({
+    this.androidPlatform = LocationEngineAndroidProperties.defaultProperties,
+  });
+  static const LocationEnginePlatforms defaultPlatform = LocationEnginePlatforms();
+
+  List<int> toList() {
+   if(Platform.isAndroid) return androidPlatform.toList();
+   return [];
+  }
+}
+
 /// A class representing the properties for the location engine.
 @immutable
-class LocationEngineProperties {
+class LocationEngineAndroidProperties {
   /// The interval in milliseconds for location updates.
   final int interval;
 
@@ -12,19 +29,25 @@ class LocationEngineProperties {
   /// The priority for location accuracy and power usage.
   final LocationPriority priority;
 
-  /// Creates a new instance of [LocationEngineProperties].
+  /// Creates a new instance of [LocationEngineAndroidProperties].
   ///
   /// All parameters are required.
-  const LocationEngineProperties({
+  const LocationEngineAndroidProperties({
     required this.interval,
     required this.displacement,
     required this.priority,
   });
 
+  static const LocationEngineAndroidProperties defaultProperties = LocationEngineAndroidProperties(
+    interval: 1000,
+    displacement: 0,
+    priority: LocationPriority.balanced,
+  );
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is LocationEngineProperties &&
+      (other is LocationEngineAndroidProperties &&
           runtimeType == other.runtimeType &&
           interval == other.interval &&
           displacement == other.displacement &&
@@ -39,12 +62,12 @@ class LocationEngineProperties {
   }
 
   /// Creates a copy of this [LocationEngineProperties] but with the given fields replaced with the new values.
-  LocationEngineProperties copyWith({
+  LocationEngineAndroidProperties copyWith({
     int? interval,
     int? displacement,
     LocationPriority? priority,
   }) {
-    return LocationEngineProperties(
+    return LocationEngineAndroidProperties(
       interval: interval ?? this.interval,
       displacement: displacement ?? this.displacement,
       priority: priority ?? this.priority,
@@ -53,18 +76,15 @@ class LocationEngineProperties {
 
   List<int> toList() {
     return [
-         interval,
-         priority.index,
-         displacement,
+      interval,
+      priority.index,
+      displacement,
     ];
   }
-
 }
 
 /// An enum representing the priority for location accuracy and power usage.
 enum LocationPriority {
   highAccuracy,
   balanced,
-  lowPower,
-  noPower,
 }

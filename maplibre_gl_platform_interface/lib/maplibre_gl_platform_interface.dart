@@ -1,6 +1,7 @@
 library maplibre_gl_platform_interface;
 
 import 'dart:async';
+import 'dart:io';
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
