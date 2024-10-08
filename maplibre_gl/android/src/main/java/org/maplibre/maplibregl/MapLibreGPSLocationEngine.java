@@ -21,7 +21,7 @@ import org.maplibre.android.location.engine.LocationEngineImpl;
 
 
 public class MapLibreGPSLocationEngine implements LocationEngineImpl<LocationListener> {
-    private static final String TAG = "AndroidLocationEngine";
+    private static final String TAG = "GPSLocationEngine";
     final LocationManager locationManager;
 
     String currentProvider = LocationManager.PASSIVE_PROVIDER;
@@ -71,7 +71,6 @@ public class MapLibreGPSLocationEngine implements LocationEngineImpl<LocationLis
     public void requestLocationUpdates(@NonNull LocationEngineRequest request,
                                        @NonNull LocationListener listener,
                                        @Nullable Looper looper) throws SecurityException {
-        // Pick best provider only if user has not explicitly chosen passive mode
         currentProvider = getBestProvider(request.getPriority());
         locationManager.requestLocationUpdates(currentProvider, request.getInterval(), request.getDisplacement(),
                 listener, looper);
@@ -81,7 +80,6 @@ public class MapLibreGPSLocationEngine implements LocationEngineImpl<LocationLis
     @Override
     public void requestLocationUpdates(@NonNull LocationEngineRequest request,
                                        @NonNull PendingIntent pendingIntent) throws SecurityException {
-        // Pick best provider only if user has not explicitly chosen passive mode
         currentProvider = getBestProvider(request.getPriority());
         locationManager.requestLocationUpdates(currentProvider, request.getInterval(),
                 request.getDisplacement(), pendingIntent);
@@ -104,7 +102,6 @@ public class MapLibreGPSLocationEngine implements LocationEngineImpl<LocationLis
 
     private String getBestProvider(int priority) {
         String provider = null;
-        // Pick best provider only if user has not explicitly chosen passive mode
         if (priority != LocationEngineRequest.PRIORITY_NO_POWER) {
             provider = LocationManager.GPS_PROVIDER;
         }

@@ -215,6 +215,6 @@ class MapLibreMapBuilder implements MapLibreMapOptionsSink {
 
   @Override
   public void setLocationEngineProperties(@NonNull LocationEngineRequest locationEngineRequest) {
-this.locationEngineRequest = locationEngineRequest;
+    this.locationEngineRequest = locationEngineRequest;
   }
 }

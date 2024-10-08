@@ -68,8 +68,8 @@ class MapLibreMap extends StatefulWidget {
         assert(annotationOrder.length <= 4),
         assert(annotationConsumeTapEvents.length > 0);
 
-  /// The properties for the location engine, which include interval, displacement, and priority.
-  /// Can only be set if [myLocationEnabled] is set to true.
+  /// The properties for the platform-specific location engine.
+  /// Only has an impact if [myLocationEnabled] is set to true.
   final LocationEnginePlatforms locationEnginePlatforms;
 
   /// Defines the layer order of annotations displayed on map

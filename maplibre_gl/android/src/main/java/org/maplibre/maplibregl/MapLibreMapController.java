@@ -33,7 +33,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mapbox.android.gestures.AndroidGesturesManager;
 import com.mapbox.android.gestures.MoveGestureDetector;
-
 import org.maplibre.android.location.engine.LocationEngine;
 import org.maplibre.android.location.engine.LocationEngineDefault;
 import org.maplibre.android.location.engine.LocationEngineProxy;
@@ -147,7 +146,6 @@ final class MapLibreMapController
   private Map<String, FeatureCollection> addedFeaturesByLayer;
 
   private LatLngBounds bounds = null;
-
   Style.OnStyleLoaded onStyleLoadedCallback =
       new Style.OnStyleLoaded() {
         @Override
@@ -691,8 +689,8 @@ final class MapLibreMapController
         break;
       case "map#update":
         {
-    Convert.interpretMapLibreMapOptions(call.argument("options"), this, context);
-    result.success(Convert.toJson(getCameraPosition()));
+          Convert.interpretMapLibreMapOptions(call.argument("options"), this, context);
+          result.success(Convert.toJson(getCameraPosition()));
           break;
         }
       case "map#updateMyLocationTrackingMode":
@@ -1852,15 +1850,16 @@ final class MapLibreMapController
   @Override
   public void setLocationEngineProperties(LocationEngineRequest locationEngineRequest){
     if(locationComponent != null){
-     if(locationEngineRequest.getPriority() == LocationEngineRequest.PRIORITY_HIGH_ACCURACY){
-       locationComponent.setLocationEngine(new LocationEngineProxy(
-               new MapLibreGPSLocationEngine(context)));
+        if(locationEngineRequest.getPriority() == LocationEngineRequest.PRIORITY_HIGH_ACCURACY){
+            locationComponent.setLocationEngine(new LocationEngineProxy(
+                new MapLibreGPSLocationEngine(context)));
      } else {
        locationComponent.setLocationEngine(
                LocationEngineDefault.INSTANCE.getDefaultLocationEngine(context));
-     }
+            }
       locationComponent.setLocationEngineRequest(locationEngineRequest);
-    } }
+    }
+  }
 
   @Override
   public void setCompassEnabled(boolean compassEnabled) {

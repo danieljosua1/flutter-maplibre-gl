@@ -1,23 +1,24 @@
 part of '../maplibre_gl_platform_interface.dart';
 
-///IOS is not supported at the moment
+/// iOS is not supported at the moment.
 @immutable
 class LocationEnginePlatforms {
   /// The properties for the Android platform.
   final LocationEngineAndroidProperties androidPlatform;
 
+  /// If [androidPlatform] is not provided, it defaults to [LocationEngineAndroidProperties.defaultProperties].
   const LocationEnginePlatforms({
     this.androidPlatform = LocationEngineAndroidProperties.defaultProperties,
   });
+
   static const LocationEnginePlatforms defaultPlatform = LocationEnginePlatforms();
 
   List<int> toList() {
-   if(Platform.isAndroid) return androidPlatform.toList();
-   return [];
+    if (Platform.isAndroid) return androidPlatform.toList();
+    return [];
   }
 }
 
-/// A class representing the properties for the location engine.
 @immutable
 class LocationEngineAndroidProperties {
   /// The interval in milliseconds for location updates.
@@ -26,19 +27,21 @@ class LocationEngineAndroidProperties {
   /// The minimum displacement in meters for location updates.
   final int displacement;
 
-  /// The priority for location accuracy and power usage.
+  /// [LocationPriority.highAccuracy] only uses native GPS provider
+  /// [LocationPriority.balanced] uses a fused provider (network + GPS)-> better quality indoor
+  /// [LocationPriority.lowPower] only uses network provider
+  /// [LocationPriority.noPower] only receives location updates when another clients request them
+  ///
   final LocationPriority priority;
 
-  /// Creates a new instance of [LocationEngineAndroidProperties].
-  ///
-  /// All parameters are required.
   const LocationEngineAndroidProperties({
     required this.interval,
     required this.displacement,
     required this.priority,
   });
 
-  static const LocationEngineAndroidProperties defaultProperties = LocationEngineAndroidProperties(
+  static const LocationEngineAndroidProperties defaultProperties =
+  LocationEngineAndroidProperties(
     interval: 1000,
     displacement: 0,
     priority: LocationPriority.balanced,
@@ -47,21 +50,21 @@ class LocationEngineAndroidProperties {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is LocationEngineAndroidProperties &&
-          runtimeType == other.runtimeType &&
-          interval == other.interval &&
-          displacement == other.displacement &&
-          priority == other.priority);
+          (other is LocationEngineAndroidProperties &&
+              runtimeType == other.runtimeType &&
+              interval == other.interval &&
+              displacement == other.displacement &&
+              priority == other.priority);
 
   @override
-  int get hashCode => interval.hashCode ^ displacement.hashCode ^ priority.hashCode;
+  int get hashCode =>
+      interval.hashCode ^ displacement.hashCode ^ priority.hashCode;
 
   @override
   String toString() {
-    return 'LocationEngineProperties{ interval: $interval, displacement: $displacement, locationPriority: $priority}';
+    return 'LocationEngineAndroidProperties{ interval: $interval, displacement: $displacement, priority: $priority }';
   }
 
-  /// Creates a copy of this [LocationEngineProperties] but with the given fields replaced with the new values.
   LocationEngineAndroidProperties copyWith({
     int? interval,
     int? displacement,
@@ -85,6 +88,12 @@ class LocationEngineAndroidProperties {
 
 /// An enum representing the priority for location accuracy and power usage.
 enum LocationPriority {
+  /// High accuracy, may consume more power.
   highAccuracy,
+  /// Balanced accuracy and power usage.
   balanced,
+  /// Low power usage, may be less accurate.
+  lowPower,
+  /// No power usage, only receive location updates when other clients request them.
+  noPower,
 }
