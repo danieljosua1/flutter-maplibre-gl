@@ -476,6 +476,7 @@ class LayerPropertyConverter {
         let isColor = propertyName.contains("color");
         let isOffset = propertyName.contains("offset");
         let isTranslate = propertyName.contains("translate");
+        let isEdgeInsets = propertyName == "icon-text-fit-padding";
 
         do {
             let json = try JSONSerialization.jsonObject(with: expression.data(using: .utf8)!, options: .fragmentsAllowed)
@@ -497,6 +498,21 @@ class LayerPropertyConverter {
                 // checks on the value of property that are literal expressions
                 if offset.count == 2 && offset.first is String && offset.first as? String == "literal" {
                     if let vector = offset.last as? [Any]{
+                        if isEdgeInsets && vector.count == 4 {
+                            let values = vector.compactMap { element -> CGFloat? in
+                                if let d = element as? Double { return CGFloat(d) }
+                                if let i = element as? Int { return CGFloat(i) }
+                                return nil
+                            }
+                            if values.count == 4 {
+                                return NSExpression(forConstantValue: NSValue(
+                                    uiEdgeInsets: UIEdgeInsets(
+                                        top: values[0], left: values[1],
+                                        bottom: values[2], right: values[3]
+                                    )
+                                ))
+                            }
+                        }
                         if(vector.count == 2) {
                             if isOffset || isTranslate {
                                 // this is required because NSExpression.init(mglJSONObject: json) fails to create
@@ -518,6 +534,21 @@ class LayerPropertyConverter {
                     // this is required because NSExpression.init(mglJSONObject: json) fails to create
                     // a proper Expression if the data is an array of double
                     return NSExpression(forConstantValue: [NSNumber(value: x), NSNumber(value: y)])
+                } else if isEdgeInsets && offset.count == 4 {
+                    // icon-text-fit-padding requires UIEdgeInsets, not an array of numbers
+                    let values = offset.compactMap { element -> CGFloat? in
+                        if let d = element as? Double { return CGFloat(d) }
+                        if let i = element as? Int { return CGFloat(i) }
+                        return nil
+                    }
+                    if values.count == 4 {
+                        return NSExpression(forConstantValue: NSValue(
+                            uiEdgeInsets: UIEdgeInsets(
+                                top: values[0], left: values[1],
+                                bottom: values[2], right: values[3]
+                            )
+                        ))
+                    }
                 } else {
                     // Handle arrays with any number of elements (e.g., dash arrays with 3+ elements)
                     // Convert to array of NSNumbers for proper expression creation
