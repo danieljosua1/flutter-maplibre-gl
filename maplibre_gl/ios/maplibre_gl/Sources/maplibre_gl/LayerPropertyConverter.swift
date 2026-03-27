@@ -521,7 +521,7 @@ class LayerPropertyConverter {
                 } else {
                     // Handle arrays with any number of elements (e.g., dash arrays with 3+ elements)
                     // Convert to array of NSNumbers for proper expression creation
-                    let numbers = offset.compactMap { $0 as? Double }.map { NSNumber(value: $0) }
+                    let numbers = offset.compactMap { ($0 as? NSNumber)?.doubleValue }.map { NSNumber(value: $0) }
                     if numbers.count == offset.count {
                         return NSExpression(forConstantValue: numbers)
                     }
